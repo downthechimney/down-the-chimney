@@ -7,8 +7,8 @@
 <style>
 :root{
   --accent:#e11d48; 
-  --glass: rgba(0,0,0,.35);
-  --glass-hover: rgba(0,0,0,.45);
+  --glass: rgba(255,255,255,.28);
+  --glass-hover: rgba(255,255,255,.4);
 }
 html,body{height:100%;}
 body{
@@ -21,17 +21,35 @@ body{
   background-image:url('https://github.com/downthechimney/down-the-chimney/blob/main/chimney_vintage_bg.jpg?raw=true');
   background-size:cover; background-position:center; background-repeat:no-repeat;
 }
-.tint{position:absolute; inset:0; background: radial-gradient(1200px 600px at 30% 30%, rgba(0,0,0,.08), rgba(0,0,0,.35) 60%, rgba(0,0,0,.55) 100%);}
+.tint{position:absolute; inset:0; background: radial-gradient(1200px 600px at 30% 30%, rgba(0,0,0,.08), rgba(0,0,0,.3) 60%, rgba(0,0,0,.5) 100%);}
 .center{position:relative; z-index:10; height:100%; display:grid; place-items:center;}
 .stack{display:flex; flex-direction:column; align-items:center; gap:1.5rem;}
 
+/* Flicker animation for neon feel */
+@keyframes neon-flicker {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 6px rgba(255,255,255,.45)) }
+  48% { opacity: .96 }
+  50% { opacity: .86 }
+  52% { opacity: .98 }
+  70% { opacity: .92 }
+  72% { opacity: .75 }
+  74% { opacity: .98 }
+}
+.flicker { animation: neon-flicker 2.4s infinite ease-in-out; }
+
+/* Logo background flicker pulse */
+@keyframes bg-pulse {
+  0%, 100% { background: rgba(255,255,255,.28); }
+  50% { background: rgba(255,255,255,.36); }
+}
+
 /* LOGO container background */
 .logo-wrap{
-  background: rgba(0,0,0,.35);
   padding: 1rem 2rem;
   border-radius: 80px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
   box-shadow: 0 8px 20px rgba(0,0,0,.4);
+  animation: bg-pulse 3s infinite ease-in-out;
 }
 .logo{
   height:180px; width:auto; filter: drop-shadow(0 12px 28px rgba(0,0,0,.45));
@@ -47,7 +65,7 @@ body{
 .icon-btn::before{
   content:""; position:absolute; inset:0;
   background: var(--glass);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
   transform: skewX(-14deg);
   border: 1px solid rgba(255,255,255,.28);
   box-shadow: 0 10px 30px rgba(0,0,0,.35);
@@ -55,23 +73,11 @@ body{
   z-index:-1;
   transition: background .2s ease, border-color .2s ease, transform .06s ease;
 }
-.icon-btn:hover::before{ background: var(--glass-hover); border-color: rgba(255,255,255,.38); }
+.icon-btn:hover::before{ background: var(--glass-hover); border-color: rgba(255,255,255,.45); }
 .icon-btn:active::before{ transform: skewX(-14deg) translateY(1px); }
 
 /* Retro icons */
 .icon{width:42px; height:42px; fill:#fff;}
-
-/* Neon-style gentle flicker */
-@keyframes neon-flicker {
-  0%, 100% { opacity: 1; filter: drop-shadow(0 0 6px rgba(255,255,255,.45)) }
-  48% { opacity: .96 }
-  50% { opacity: .86 }
-  52% { opacity: .98 }
-  70% { opacity: .92 }
-  72% { opacity: .75 }
-  74% { opacity: .98 }
-}
-.flicker { animation: neon-flicker 2.4s infinite ease-in-out; }
 
 .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
 </style>
@@ -83,7 +89,7 @@ body{
 
   <main class="center">
     <div class="stack">
-      <!-- Logo inside soft oval background -->
+      <!-- Logo inside soft oval background with flicker pulse -->
       <div class="logo-wrap">
         <img class="logo" src="https://github.com/downthechimney/down-the-chimney/blob/main/chimney_logo_neon_basic.gif?raw=true" alt="Chimney" />
       </div>
